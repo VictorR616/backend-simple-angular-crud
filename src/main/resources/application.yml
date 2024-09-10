@@ -1,0 +1,5 @@
+spring:
+    application:
+        name: backend-simple-angular-crud
+    profiles:
+        active: dev

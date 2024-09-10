@@ -1,0 +1,29 @@
+services:
+    backend-simple-angular-crud:
+        container_name: backend-simple-angular-crud
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 8081:8080
+        depends_on:
+            - mysql
+        environment:
+            SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+            SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+            SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+            SPRING_DATASOURCE_DB: ${SPRING_DATASOURCE_DB}
+    mysql:
+        image: mysql:latest
+        container_name: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+            MYSQL_USER: ${SPRING_DATASOURCE_USERNAME}
+            MYSQL_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+            MYSQL_DATABASE: ${SPRING_DATASOURCE_DB}
+        ports:
+            - 3306:3306
+        volumes:
+            - ./mysql:/var/lib/mysql
